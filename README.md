@@ -1,2 +1,2 @@
-# normalize
-code normalize
+# 规范化
+代码规范
