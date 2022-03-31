@@ -26,4 +26,4 @@ RestFulApi 接口示例。
 - DELETE
   - 负责删除数据
 
-PUT、DELETE 可用 POST 替代。**GET 不可用于查询数据**。
+PUT、DELETE 可用 POST 替代。**GET 不可用于修改数据**。
