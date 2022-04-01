@@ -16,7 +16,8 @@ import java.util.Collections;
  * @Author 李健新
  * @date: 2021/1/8 9:32
  * @Description:
- *      发送魔术包：实现电脑远程开机(WOL)
+ *
+ *      发送魔术包：实现电脑远程开机(Wake On Lan)
  */
 public class MagicPackageUtils {
 
@@ -30,14 +31,13 @@ public class MagicPackageUtils {
 
         // 广播，需要先根据子网掩码和ip得到主机的广播地址
         String broadcastAddress=getBroadcastAddress("192.168.3.22","255.255.255.0");
+        // 发送报文包
         sendMagicPackage(broadcastAddress, "8C:EC:4B:AE:AB:AB");
-//        sendMagicPackage("192.168.3.22", "8C:EC:4B:AE:AB:AB");
-//        System.out.println(broadcastAddress);
-
     }
 
     /**
      * 通过组播发送
+     *
      * @param sbunetMask
      * @param ip
      * @param mac
