@@ -36,7 +36,7 @@
    - 修改启动类名称
    - 修改@MapperScan 指定的路径
 
-## 示例工程
+## 示例工程（可 copy 直接使用）
 
 - utils 简单功能工具类
   - MagicPackageUtils WOL 工具类
