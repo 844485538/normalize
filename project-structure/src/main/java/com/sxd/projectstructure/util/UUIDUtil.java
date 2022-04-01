@@ -5,7 +5,7 @@ import java.util.UUID;
 /**
  * @author liJianxin
  *
- * UUID工具类
+ *      UUID工具类
  */
 public final class UUIDUtil {
 
