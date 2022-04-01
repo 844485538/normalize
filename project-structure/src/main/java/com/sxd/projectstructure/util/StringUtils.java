@@ -1,7 +1,5 @@
 package com.sxd.projectstructure.util;
 
-import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
-
 /**
  * @Author 李健新
  * @Date 2022/4/1
