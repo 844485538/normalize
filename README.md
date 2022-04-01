@@ -38,4 +38,9 @@
 
 ## 示例工程
 
+- utils 简单功能工具类
+  - MagicPackageUtils WOL 工具类
+  - StringUtils 字符串工具类
+  - TimeUtils 时间工具类
+  - UUIDUtils UUID 工具类
 - auth-code 页面验证码操作工具类示例
