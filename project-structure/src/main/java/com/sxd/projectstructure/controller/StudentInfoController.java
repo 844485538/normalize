@@ -1,9 +1,12 @@
 package com.sxd.projectstructure.controller;
 
+import com.sxd.projectstructure.config.jsr.InsertDO;
+import com.sxd.projectstructure.config.jsr.UpdateDO;
 import com.sxd.projectstructure.entity.DO.StudentInfoDO;
 import com.sxd.projectstructure.entity.VO.ResponseTemplate;
 import com.sxd.projectstructure.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,7 +28,7 @@ public class StudentInfoController {
      * @return
      */
     @PostMapping
-    public ResponseTemplate insertStudentInfo(@RequestBody StudentInfoDO studentInfoDO) {
+    public ResponseTemplate insertStudentInfo(@Validated(value = InsertDO.class) @RequestBody StudentInfoDO studentInfoDO) {
         studentInfoService.insertStudentInfo(studentInfoDO);
         return ResponseTemplate.success();
     }
@@ -37,7 +40,7 @@ public class StudentInfoController {
     }
 
     @PutMapping
-    public ResponseTemplate updateStudentInfo(@RequestBody StudentInfoDO studentInfoDO) {
+    public ResponseTemplate updateStudentInfo(@Validated(value = UpdateDO.class) @RequestBody StudentInfoDO studentInfoDO) {
         studentInfoService.updateStudentInfo(studentInfoDO);
         return ResponseTemplate.success();
     }

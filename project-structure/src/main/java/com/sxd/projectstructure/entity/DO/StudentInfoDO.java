@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
+import com.sxd.projectstructure.config.jsr.InsertDO;
+import com.sxd.projectstructure.config.jsr.UpdateDO;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -17,22 +20,26 @@ import java.time.LocalDateTime;
 @TableName(value = "student_info")
 public class StudentInfoDO {
 
+    @NotNull(message = "ID不可为空", groups = {UpdateDO.class})
     @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
      * 姓名
      */
+    @NotEmpty(message = "菜单名称不可为空", groups = {InsertDO.class, UpdateDO.class})
     private String name;
 
     /**
      * 年龄
      */
+    @NotNull(message = "年龄不可为空", groups = {InsertDO.class, UpdateDO.class})
     private Integer age;
 
     /**
-     * 角色ID
+     * 身份证号
      */
+    @NotEmpty(message = "身份证号不可为空", groups = {InsertDO.class, UpdateDO.class})
     @TableField(value = "id_card")
     private String idCard;
 
