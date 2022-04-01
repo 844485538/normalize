@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sxd.projectstructure.mapper.StudentInfoMapper">
+
+    <select id="listStudentGrade" resultType="com.sxd.projectstructure.entity.VO.StudentGradeVO">
+        SELECT info.id AS id, info.name AS name, grade.subject AS subject, grade.grade AS grade
+        FROM student_info AS info
+        LEFT JOIN student_grade AS grade ON info.id = grade.student_id
+    </select>
+
+
+    <select id="pageStudentGrade" resultType="com.sxd.projectstructure.entity.VO.StudentGradeVO">
+        SELECT info.id AS id, info.name AS name, grade.subject AS subject, grade.grade AS grade
+        FROM student_info AS info
+        LEFT JOIN student_grade AS grade ON info.id = grade.student_id
+    </select>
+
+</mapper>
