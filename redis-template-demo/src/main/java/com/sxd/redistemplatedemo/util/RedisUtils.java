@@ -201,6 +201,25 @@ public class RedisUtils {
         return redisTemplate.type(key);
     }
 
+    /**
+     * 将指定key 持久化
+     * @param key
+     * @return
+     */
+    public Boolean persistKey(String key) {
+        return redisTemplate.persist(key);
+    }
+
+    /**
+     * 将当前数据库的key移动到指定redis中数据库当中
+     * @param key
+     * @param dbIndex
+     * @return
+     */
+    public Boolean moveToDbIndex(String key, int dbIndex) {
+        return redisTemplate.move(key, dbIndex);
+    }
+
 
     // #####################################################【string】#####################################################
     // string 类型是二进制安全的，即可以包含任何数据。
