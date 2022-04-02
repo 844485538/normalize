@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.Cursor;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -78,6 +80,16 @@ public class RedisUtilsTests {
         listValue.add("2");
         redisUtils.listLeftPush("list-key", "3");
         redisUtils.listLeftPushAll("list-key", listValue);
+    }
+
+
+    @Test
+    public void scanTest(){
+        Cursor<ZSetOperations.TypedTuple<Object>> scan = redisUtils.sortedSetScan("key", null);
+        while (scan.hasNext()){
+            ZSetOperations.TypedTuple<Object> item = scan.next();
+            System.out.println(item.getValue() + ":" + item.getScore());
+        }
     }
 
 

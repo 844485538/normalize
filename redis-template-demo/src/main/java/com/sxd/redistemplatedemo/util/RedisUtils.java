@@ -7,8 +7,12 @@ import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
+import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -160,6 +164,43 @@ public class RedisUtils {
         return redisTemplate.renameIfAbsent(oldKey, newKey);
     }
 
+    /**
+     * 将当前传入的key值序列化为byte[]类型
+     *
+     * @param key
+     * @return
+     */
+    public byte[] dump(String key){
+        return redisTemplate.dump(key);
+    }
+
+    /**
+     * 模糊搜索key
+     *
+     * @param pattern
+     * @return
+     */
+    public Set<String> getPatternKey(String pattern) {
+        return redisTemplate.keys(pattern);
+    }
+
+    /**
+     * 随机获取一个key
+     * @return
+     */
+    public String randomKey(){
+        return redisTemplate.randomKey();
+    }
+
+    /**
+     * 获取传入key所存储的值的类型
+     * @param key
+     * @return
+     */
+    public DataType getKeyType(String key) {
+        return redisTemplate.type(key);
+    }
+
 
     // #####################################################【string】#####################################################
     // string 类型是二进制安全的，即可以包含任何数据。
@@ -290,8 +331,49 @@ public class RedisUtils {
         }
     }
 
+    /**
+     * 返回key中字符串的子字符
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public String stringGetCharacterRange(String key, long start, long end) {
+        return redisTemplate.opsForValue().get(key, start, end);
+    }
 
+    /**
+     * 部份覆盖指定字符串
+     *
+     * @param key
+     * @param value
+     * @param offset
+     */
+    public void StringSetRange(String key, String value, long offset){
+        redisTemplate.opsForValue().set(key, value, offset);
+    }
 
+    // #####################################################【Bit】#####################################################
+
+    /**
+     * 设置Bit
+     * @param key
+     * @param offset
+     * @param value
+     */
+    public void bitSet(String key, long offset, boolean value){
+        redisTemplate.opsForValue().setBit(key, offset, value);
+    }
+
+    /**
+     * 获取Bit
+     * @param key
+     * @param offset
+     */
+    public Boolean getBit(String key, long offset){
+        return redisTemplate.opsForValue().getBit(key, offset);
+    }
 
     // #####################################################【Hash】#####################################################
     // hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表。
@@ -656,6 +738,364 @@ public class RedisUtils {
         return redisTemplate.opsForSet().isMember(key, value);
     }
 
+    /**
+     * 随机集合中的所有元素
+     *
+     * @param key
+     */
+    public Set<Object> setGetMembers(String key){
+        return redisTemplate.opsForSet().members(key);
+    }
+
+    /**
+     * 随机获取一个元素
+     * @param key
+     */
+    public Object setGetRandomMember(String key){
+        return redisTemplate.opsForSet().randomMember(key);
+    }
+
+    /**
+     * 随机获取count个元素
+     * @param key
+     * @param count
+     * @return
+     */
+    public List<Object> setGetRandomMembers(String key, long count){
+        return redisTemplate.opsForSet().randomMembers(key, count);
+    }
+
+    /**
+     * 随机弹出一个元素
+     * @param key
+     */
+    public Object setPop(String key){
+        return redisTemplate.opsForSet().pop(key);
+    }
+
+    /**
+     * 获取size
+     * @param key
+     * @return
+     */
+    public long setSize(String key){
+        return redisTemplate.opsForSet().size(key);
+    }
+
+    /**
+     * 获取多个集合的交集
+     *
+     * @param key
+     * @param otherKeys
+     */
+    public Set<Object> setGetIntersect(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().intersect(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的交集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     */
+    public void setGetIntersectAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().intersectAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * 获取多个集合的并集
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public Set<Object> setGetUnion(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().union(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的并集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public void setGetUnionAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().unionAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * 获取多个集合的差集
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public Set<Object> setGetDifference(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().difference(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的差集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public void setGetDifferenceAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().differenceAndStore(key, otherKeys, destKey);
+    }
+
+    // #####################################################【sortedSet(zSet)】#####################################################
+    // 有序集合的成员是唯一的,但分数(score)却可以重复。按照元素的score值由小到大进行排列
+    // 每个Set可以存储2^32 - 1个元素（40多亿）
+
+
+    /**
+     * 新增
+     *
+     * @param key
+     * @param value
+     * @param score
+     * @return
+     */
+    public Boolean sortedSetAdd(String key, Object value, double score) {
+        try {
+            redisTemplate.opsForZSet().add(key, value, score);
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * 删除
+     *
+     * @param key
+     * @param values
+     */
+    public long sortedSetRemove(String key, Object... values){
+        return redisTemplate.opsForZSet().remove(key, values);
+    }
+
+    /**
+     * 移除指定索引位置处的成员
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public long sortedSetRemoveRange(String key, long start, long end){
+        return redisTemplate.opsForZSet().removeRange(key, start, end);
+    }
+
+    /**
+     * 根据Score 范围删除元素
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public long sortedSetRemoveRangeByScore(String key, long min, long max){
+        return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
+    }
+
+    /**
+     * 增加元素的score值，并返回增加后的值
+     * @param key
+     * @param value
+     * @param score
+     */
+    public Double sortedSetIncrementScore(String key, String value, double score){
+        return redisTemplate.opsForZSet().incrementScore(key, value, score);
+    }
+
+    /**
+     * 获取指定元素的score
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public Double sortedSetGetScore(String key, String value){
+        return redisTemplate.opsForZSet().score(key, value);
+    }
+
+
+    /**
+     * 返回元素在集合的排名,有序集合是按照元素的score值由小到大排列
+     * @param key
+     * @param value
+     */
+    public Long sortedSetRank(String key, String value){
+        return redisTemplate.opsForZSet().rank(key, value);
+    }
+
+    /**
+     * 返回元素在集合的排名,按元素的score值由大到小排列
+     *
+     * @param key
+     * @param value
+     */
+    public Long sortedSetReverseRank(String key, String value){
+        return redisTemplate.opsForZSet().reverseRank(key, value);
+    }
+
+    /**
+     * 获取集合中给定区间的元素
+     *      -1 查询所有
+     * @param key
+     * @param start
+     * @param end
+     */
+    public Set<ZSetOperations.TypedTuple<Object>> sortedSetReverseRangeWithScores(String key, long start, long end){
+        return redisTemplate.opsForZSet().reverseRangeWithScores(key, start, end);
+    }
+
+    /**
+     * 按照Score值查询集合中的元素，结果从小到大排序
+     * @param key
+     * @param min
+     * @param max
+     */
+    public Set<Object> sortedSetReverseRangeByScore(String key, long min, long max){
+        return redisTemplate.opsForZSet().reverseRangeByScore(key, min, max);
+    }
+
+    /**
+     * 从高到低的排序集中获取分数在最小和最大值之间的元素
+     * @param key
+     * @param min
+     * @param max
+     * @param start
+     * @param end
+     */
+    public Set<Object> sortedSetReverseRangeByScore(String key, long min, long max, long start, long end){
+        return redisTemplate.opsForZSet().reverseRangeByScore(key, min, max, start, end);
+    }
+
+    /**
+     * 根据score值获取集合元素数量
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public long sortedSetCount(String key, long min, long max){
+        return redisTemplate.opsForZSet().count(key, min, max);
+    }
+
+    /**
+     * 获取集合的大小
+     * @param key
+     * @return
+     */
+    public long sortedSetSize(String key){
+        return redisTemplate.opsForZSet().size(key);
+    }
+
+    /**
+     * 获取多个集合的交集
+     *
+     * @param key
+     * @param otherKeys
+     */
+    public Set<Object> sortedSetGetIntersect(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().intersect(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的交集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     */
+    public void sortedSetGetIntersectAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().intersectAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * 获取多个集合的并集
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public Set<Object> sortedSetGetUnion(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().union(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的并集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public void sortedSetGetUnionAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().unionAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * 获取多个集合的差集
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public Set<Object> sortedSetGetDifference(String key, List<String> otherKeys){
+        return redisTemplate.opsForSet().difference(key, otherKeys);
+    }
+
+    /**
+     * 获取多个集合的差集并存入指定集合
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public void sortedSetGetDifferenceAndStore(String key, List<String> otherKeys, String destKey){
+        redisTemplate.opsForSet().differenceAndStore(key, otherKeys, destKey);
+    }
+
+    // #####################################################【Scan】#####################################################
+    // 迭代器
+
+    /**
+     * 获取hash 迭代器
+     * @param key
+     * @param options
+     * @return
+     */
+    public Cursor<Map.Entry<Object, Object>> hashScan(String key, ScanOptions options) {
+        if (options == null){
+            options = ScanOptions.NONE;
+        }
+        return redisTemplate.opsForHash().scan(key, options);
+    }
+
+    /**
+     * 获取Set 迭代器
+     * @param key
+     * @param options
+     * @return
+     */
+    public Cursor<Object> setScan (String key, ScanOptions options){
+        if (options == null){
+            options = ScanOptions.NONE;
+        }
+        return redisTemplate.opsForSet().scan(key, options);
+    }
+
+    /**
+     * 获取sorted set 迭代器
+     * @param key
+     * @param options
+     * @return
+     */
+    public Cursor<ZSetOperations.TypedTuple<Object>> sortedSetScan (String key, ScanOptions options){
+        if (options == null){
+            options = ScanOptions.NONE;
+        }
+        return redisTemplate.opsForZSet().scan(key, options);
+    }
 
 
     // #####################################################【经纬度】#####################################################
