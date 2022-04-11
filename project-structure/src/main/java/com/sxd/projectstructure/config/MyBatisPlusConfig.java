@@ -22,7 +22,7 @@ public class MyBatisPlusConfig {
      * @return
      */
     @Bean
-    public MybatisPlusInterceptor PaginationInnerInterceptor() {
+    public MybatisPlusInterceptor paginationInnerInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;

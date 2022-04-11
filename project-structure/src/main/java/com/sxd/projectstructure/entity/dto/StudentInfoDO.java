@@ -1,4 +1,4 @@
-package com.sxd.projectstructure.entity.DO;
+package com.sxd.projectstructure.entity.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

@@ -2,7 +2,7 @@ package com.sxd.projectstructure.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sxd.projectstructure.entity.DO.StudentInfoDO;
+import com.sxd.projectstructure.entity.dto.StudentInfoDO;
 import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 import com.sxd.projectstructure.mapper.StudentInfoMapper;
 import com.sxd.projectstructure.service.StudentInfoService;
@@ -89,8 +89,6 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     @Override
     public IPage<StudentGradeVO> pageStudentInfo(Integer currentPage, Integer pageSize) {
         Page<StudentGradeVO> page = new Page<>(currentPage, pageSize);
-        IPage<StudentGradeVO> result =
-                studentInfoMapper.pageStudentGrade(page);
-        return result;
+        return studentInfoMapper.pageStudentGrade(page);
     }
 }

@@ -1,7 +1,7 @@
 package com.sxd.projectstructure.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sxd.projectstructure.entity.DO.StudentInfoDO;
+import com.sxd.projectstructure.entity.dto.StudentInfoDO;
 import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 
 import java.util.List;
