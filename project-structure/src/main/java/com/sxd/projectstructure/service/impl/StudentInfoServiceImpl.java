@@ -2,7 +2,7 @@ package com.sxd.projectstructure.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.sxd.projectstructure.entity.dto.StudentInfoDO;
+import com.sxd.projectstructure.entity.po.StudentInfoPO;
 import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 import com.sxd.projectstructure.mapper.StudentInfoMapper;
 import com.sxd.projectstructure.service.StudentInfoService;
@@ -29,13 +29,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     /**
      * 创建学生
      *
-     * @param studentInfoDO
+     * @param studentInfoPO
      */
     @Override
-    public void insertStudentInfo(StudentInfoDO studentInfoDO) {
-        studentInfoDO.setCreateTime(DateTimeUtil.now());
-        studentInfoDO.setUpdateTime(DateTimeUtil.now());
-        studentInfoMapper.insert(studentInfoDO);
+    public void insertStudentInfo(StudentInfoPO studentInfoPO) {
+        studentInfoPO.setCreateTime(DateTimeUtil.now());
+        studentInfoPO.setUpdateTime(DateTimeUtil.now());
+        studentInfoMapper.insert(studentInfoPO);
     }
 
     /**
@@ -51,13 +51,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     /**
      * 修改学生
      *
-     * @param studentInfoDO
+     * @param studentInfoPO
      * @return
      */
     @Override
-    public void updateStudentInfo(StudentInfoDO studentInfoDO) {
-        studentInfoDO.setUpdateTime(DateTimeUtil.now());
-        studentInfoMapper.updateById(studentInfoDO);
+    public void updateStudentInfo(StudentInfoPO studentInfoPO) {
+        studentInfoPO.setUpdateTime(DateTimeUtil.now());
+        studentInfoMapper.updateById(studentInfoPO);
     }
 
     /**
@@ -67,7 +67,7 @@ public class StudentInfoServiceImpl implements StudentInfoService {
      * @return
      */
     @Override
-    public StudentInfoDO getStudentInfo(Integer id) {
+    public StudentInfoPO getStudentInfo(Integer id) {
         return studentInfoMapper.selectById(id);
     }
 

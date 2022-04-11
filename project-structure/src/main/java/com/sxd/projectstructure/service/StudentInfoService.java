@@ -1,7 +1,7 @@
 package com.sxd.projectstructure.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sxd.projectstructure.entity.dto.StudentInfoDO;
+import com.sxd.projectstructure.entity.po.StudentInfoPO;
 import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 
 import java.util.List;
@@ -18,9 +18,9 @@ public interface StudentInfoService {
     /**
      * 创建学生信息
      *
-     * @param studentInfoDO
+     * @param studentInfoPO
      */
-    void insertStudentInfo(StudentInfoDO studentInfoDO);
+    void insertStudentInfo(StudentInfoPO studentInfoPO);
 
     /**
      * 删除学生信息
@@ -32,10 +32,10 @@ public interface StudentInfoService {
     /**
      * 修改学生信息
      *
-     * @param studentInfoDO
+     * @param studentInfoPO
      * @return
      */
-    void updateStudentInfo(StudentInfoDO studentInfoDO);
+    void updateStudentInfo(StudentInfoPO studentInfoPO);
 
     /**
      * 查询学生信息
@@ -43,7 +43,7 @@ public interface StudentInfoService {
      * @param id
      * @return
      */
-    StudentInfoDO getStudentInfo(Integer id);
+    StudentInfoPO getStudentInfo(Integer id);
 
     /**
      * 列表查询

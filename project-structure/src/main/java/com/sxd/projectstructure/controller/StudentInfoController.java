@@ -2,7 +2,7 @@ package com.sxd.projectstructure.controller;
 
 import com.sxd.projectstructure.config.jsr.InsertDO;
 import com.sxd.projectstructure.config.jsr.UpdateDO;
-import com.sxd.projectstructure.entity.dto.StudentInfoDO;
+import com.sxd.projectstructure.entity.po.StudentInfoPO;
 import com.sxd.projectstructure.entity.vo.ResponseTemplate;
 import com.sxd.projectstructure.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,12 @@ public class StudentInfoController {
     /**
      * 新增学生信息
      *
-     * @param studentInfoDO 学生信息
+     * @param studentInfoPO 学生信息
      * @return
      */
     @PostMapping
-    public ResponseTemplate insertStudentInfo(@Validated(value = InsertDO.class) @RequestBody StudentInfoDO studentInfoDO) {
-        studentInfoService.insertStudentInfo(studentInfoDO);
+    public ResponseTemplate insertStudentInfo(@Validated(value = InsertDO.class) @RequestBody StudentInfoPO studentInfoPO) {
+        studentInfoService.insertStudentInfo(studentInfoPO);
         return ResponseTemplate.success();
     }
 
@@ -40,8 +40,8 @@ public class StudentInfoController {
     }
 
     @PutMapping
-    public ResponseTemplate updateStudentInfo(@Validated(value = UpdateDO.class) @RequestBody StudentInfoDO studentInfoDO) {
-        studentInfoService.updateStudentInfo(studentInfoDO);
+    public ResponseTemplate updateStudentInfo(@Validated(value = UpdateDO.class) @RequestBody StudentInfoPO studentInfoPO) {
+        studentInfoService.updateStudentInfo(studentInfoPO);
         return ResponseTemplate.success();
     }
 

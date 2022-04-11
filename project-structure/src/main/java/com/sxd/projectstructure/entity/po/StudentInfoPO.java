@@ -1,4 +1,4 @@
-package com.sxd.projectstructure.entity.dto;
+package com.sxd.projectstructure.entity.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  *          学生信息
  */
 @TableName(value = "student_info")
-public class StudentInfoDO {
+public class StudentInfoPO {
 
     @NotNull(message = "ID不可为空", groups = {UpdateDO.class})
     @TableId(type = IdType.AUTO)
