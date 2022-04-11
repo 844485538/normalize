@@ -24,14 +24,9 @@ public class AllExceptionHandler {
     /**
      * 处理 JSR - 303 参数异常
      */
-    @ExceptionHandler(value= {MethodArgumentNotValidException.class, BindException.class})
-    public ResponseTemplate checkParamException(Exception e) {
-        BindingResult bindingResult = null;
-        if (e instanceof MethodArgumentNotValidException) {
-            bindingResult = ((MethodArgumentNotValidException)e).getBindingResult();
-        } else if (e instanceof BindException) {
-            bindingResult = ((BindException)e).getBindingResult();
-        }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseTemplate checkParamException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
         return ResponseTemplate.fail(bindingResult.getFieldErrors().get(0).getDefaultMessage());
     }
 
