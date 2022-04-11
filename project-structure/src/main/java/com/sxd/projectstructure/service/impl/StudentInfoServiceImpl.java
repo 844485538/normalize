@@ -3,7 +3,7 @@ package com.sxd.projectstructure.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sxd.projectstructure.entity.DO.StudentInfoDO;
-import com.sxd.projectstructure.entity.VO.StudentGradeVO;
+import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 import com.sxd.projectstructure.mapper.StudentInfoMapper;
 import com.sxd.projectstructure.service.StudentInfoService;
 import com.sxd.projectstructure.util.DateTimeUtil;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author 李健新

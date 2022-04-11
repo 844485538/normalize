@@ -3,7 +3,7 @@ package com.sxd.projectstructure.controller;
 import com.sxd.projectstructure.config.jsr.InsertDO;
 import com.sxd.projectstructure.config.jsr.UpdateDO;
 import com.sxd.projectstructure.entity.DO.StudentInfoDO;
-import com.sxd.projectstructure.entity.VO.ResponseTemplate;
+import com.sxd.projectstructure.entity.vo.ResponseTemplate;
 import com.sxd.projectstructure.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

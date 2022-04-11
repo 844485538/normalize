@@ -1,4 +1,4 @@
-package com.sxd.projectstructure.entity.VO;
+package com.sxd.projectstructure.entity.vo;
 
 import com.alibaba.fastjson.annotation.JSONType;
 
@@ -150,7 +150,7 @@ enum HttpResponseStatusEnum {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -158,7 +158,7 @@ enum HttpResponseStatusEnum {
 		return code;
 	}
 
-	public void setCode(Integer code) {
+	void setCode(Integer code) {
 		this.code = code;
 	}
 

@@ -1,9 +1,8 @@
 package com.sxd.projectstructure.config;
 
-import com.sxd.projectstructure.entity.VO.ResponseTemplate;
+import com.sxd.projectstructure.entity.vo.ResponseTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

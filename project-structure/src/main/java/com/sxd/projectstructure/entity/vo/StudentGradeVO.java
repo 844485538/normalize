@@ -1,4 +1,4 @@
-package com.sxd.projectstructure.entity.VO;
+package com.sxd.projectstructure.entity.vo;
 
 /**
  * @Author 李健新

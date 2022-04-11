@@ -2,13 +2,11 @@ package com.sxd.projectstructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sxd.projectstructure.entity.DO.StudentInfoDO;
-import com.sxd.projectstructure.entity.VO.StudentGradeVO;
+import com.sxd.projectstructure.entity.vo.StudentGradeVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author LiJianxin

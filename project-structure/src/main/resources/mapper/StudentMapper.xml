@@ -5,14 +5,14 @@
 
 <mapper namespace="com.sxd.projectstructure.mapper.StudentInfoMapper">
 
-    <select id="listStudentGrade" resultType="com.sxd.projectstructure.entity.VO.StudentGradeVO">
+    <select id="listStudentGrade" resultType="com.sxd.projectstructure.entity.vo.StudentGradeVO">
         SELECT info.id AS id, info.name AS name, grade.subject AS subject, grade.grade AS grade
         FROM student_info AS info
         LEFT JOIN student_grade AS grade ON info.id = grade.student_id
     </select>
 
 
-    <select id="pageStudentGrade" resultType="com.sxd.projectstructure.entity.VO.StudentGradeVO">
+    <select id="pageStudentGrade" resultType="com.sxd.projectstructure.entity.vo.StudentGradeVO">
         SELECT info.id AS id, info.name AS name, grade.subject AS subject, grade.grade AS grade
         FROM student_info AS info
         LEFT JOIN student_grade AS grade ON info.id = grade.student_id
