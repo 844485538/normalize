@@ -369,7 +369,7 @@ public class RedisUtils {
      * @param value
      * @param offset
      */
-    public void StringSetRange(String key, String value, long offset){
+    public void stringSetRange(String key, String value, long offset){
         redisTemplate.opsForValue().set(key, value, offset);
     }
 
@@ -1129,7 +1129,6 @@ public class RedisUtils {
      * @return
      */
     public Long geoAdd(String key, double longitude, double latitude, String name) {
-//        Long addedNum = redisTemplate.opsForGeo().add("city", new Point(116.405285, 39.904989), "北京");
         Long addedNum = redisTemplate.opsForGeo().add(key, new Point(longitude, latitude), name);
         return addedNum;
     }
