@@ -113,7 +113,9 @@ public class KaprchaUtil {
      * @return
      */
     public static boolean checkAuthCode(HttpServletRequest request, String authCode){
-        return authCode.equals(request.getSession().getAttribute(SESSION_AUTH_CODE));
+        boolean result = authCode.equals(request.getSession().getAttribute(SESSION_AUTH_CODE));
+        removeCode(request);
+        return result;
     }
 
     /**

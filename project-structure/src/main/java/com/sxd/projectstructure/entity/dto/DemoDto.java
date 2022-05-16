@@ -1,4 +1,4 @@
-package com.sxd.projectstructure.entity.query;
+package com.sxd.projectstructure.entity.dto;
 
 /**
  * @Author 李健新
@@ -7,7 +7,7 @@ package com.sxd.projectstructure.entity.query;
  *
  *      查询参数实体类
  */
-public class DemoQuery {
+public class DemoDto {
 
     private Integer param;
 
